@@ -935,6 +935,8 @@ extension JCChatViewController: JCMessageDelegate {
         if message.options.alignment == .right {
             navigationController?.pushViewController(JCMyInfoViewController(), animated: true)
         } else {
+            // 不显示其他人的信息
+            return
             let vc = JCUserInfoViewController()
             vc.user = message.sender
             navigationController?.pushViewController(vc, animated: true)

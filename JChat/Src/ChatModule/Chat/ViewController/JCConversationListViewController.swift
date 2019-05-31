@@ -196,7 +196,7 @@ class JCConversationListViewController: UIViewController {
     }
     
     fileprivate lazy var selectView: YHPopupView = {
-        let popupView = MorePopupView(frame: CGRect(x: self.view.width - 150, y: 65, width: 145, height: 554 / 3))
+        let popupView = MorePopupView(frame: CGRect(x: self.view.width - 150, y: 65, width: 145, height: 100))
         popupView.delegate = self
         return popupView
     }()

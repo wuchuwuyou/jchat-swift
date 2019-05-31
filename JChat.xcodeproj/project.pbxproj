@@ -11,6 +11,7 @@
 		08C2B77B2266C4D100FDC7E5 /* JCChatRoomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C2B77A2266C4D100FDC7E5 /* JCChatRoomListTableViewCell.swift */; };
 		08C2B77D226713FC00FDC7E5 /* JCChatRoomChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C2B77C226713FC00FDC7E5 /* JCChatRoomChatViewController.swift */; };
 		08E52733226582D20031CA87 /* JCChatRoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E52732226582D20031CA87 /* JCChatRoomListViewController.swift */; };
+		0D29A4C122A1379900BEA827 /* JCMobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D29A4C022A1379900BEA827 /* JCMobileViewController.swift */; };
 		650AA8941F8A6FF400D28338 /* JMSGOptionalContent+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650AA8931F8A6FF400D28338 /* JMSGOptionalContent+.swift */; };
 		6517E08B1F90BBD9005A4B21 /* UISearchBar+JChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6517E08A1F90BBD9005A4B21 /* UISearchBar+JChat.swift */; };
 		651F362E1F53C14C00C9AAFD /* DLLRUCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 651F361F1F53C14C00C9AAFD /* DLLRUCache.m */; };
@@ -278,6 +279,7 @@
 		08C2B77A2266C4D100FDC7E5 /* JCChatRoomListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCChatRoomListTableViewCell.swift; sourceTree = "<group>"; };
 		08C2B77C226713FC00FDC7E5 /* JCChatRoomChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCChatRoomChatViewController.swift; sourceTree = "<group>"; };
 		08E52732226582D20031CA87 /* JCChatRoomListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCChatRoomListViewController.swift; sourceTree = "<group>"; };
+		0D29A4C022A1379900BEA827 /* JCMobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCMobileViewController.swift; sourceTree = "<group>"; };
 		30157DB80524A6BCE2DEFB37 /* Pods-JChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JChat/Pods-JChat.debug.xcconfig"; sourceTree = "<group>"; };
 		3A828FCE98FFA8C8CDD83E2A /* Pods-JChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-JChat/Pods-JChat.release.xcconfig"; sourceTree = "<group>"; };
 		650AA8931F8A6FF400D28338 /* JMSGOptionalContent+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JMSGOptionalContent+.swift"; sourceTree = "<group>"; };
@@ -1071,6 +1073,7 @@
 				B43BA3E11E8A2FF500565DB3 /* JCMineViewController.swift */,
 				B43BA3E21E8A2FF500565DB3 /* JCMyInfoViewController.swift */,
 				B43BA3E31E8A2FF500565DB3 /* JCRegisterViewController.swift */,
+				0D29A4C022A1379900BEA827 /* JCMobileViewController.swift */,
 				B43BA3E41E8A2FF500565DB3 /* JCUpdatePassworkViewController.swift */,
 				B401E5051E8B4A6C003ABE08 /* JCSignatureViewController.swift */,
 				B401E5071E8B7B9D003ABE08 /* JCNicknameViewController.swift */,
@@ -1369,7 +1372,6 @@
 				TargetAttributes = {
 					B43BA3731E8A2F0000565DB3 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 8X2A38Q9VD;
 						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1643,6 +1645,7 @@
 				B47FEA621EA4B3CE00AF1732 /* JCMessageImageCollectionViewCell.swift in Sources */,
 				651F36321F53C14C00C9AAFD /* DLScrollTabbarView.m in Sources */,
 				B43BA3F61E8A2FF500565DB3 /* JCCEmoticonGroup.swift in Sources */,
+				0D29A4C122A1379900BEA827 /* JCMobileViewController.swift in Sources */,
 				B47B3C7E1F1C604600AB3759 /* JCForwardViewController.swift in Sources */,
 				B4583FBA1E948F410097FB4D /* JCSingleSettingViewController.swift in Sources */,
 				0844E7FD22699D8B00E5E903 /* JCCRSearchResultViewController.swift in Sources */,

@@ -70,13 +70,13 @@ class MorePopupView: YHPopupView {
     }()
     
     private func _init() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 145, height: 554 / 3))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 145, height: 100))
         imageView.image = UIImage.loadImage("com_icon _selectList")
         addSubview(imageView)
         backgroundViewColor = .clear
         clickBlankSpaceDismiss = true
         
-        let height = Double((self.height - 5) / 4)
+        let height = Double((self.height - 5) / 2)
         let width = Double(self.width)
         let image = UIImage.createImage(color: UIColor(netHex: 0x02BDBC), size: CGSize(width: 140, height: height))
         
@@ -86,14 +86,20 @@ class MorePopupView: YHPopupView {
         addFriend.frame = CGRect(x: 0.0, y: 5 + height * 2, width: width, height: height)
         addFriend.setBackgroundImage(image, for: .highlighted)
         
-        addGroup.frame = CGRect(x: 0.0, y: 5 + height, width: width, height: height)
+        scanQRCode.frame = CGRect(x: 0.0, y: 5 + height, width: width, height: height)
         addGroup.setBackgroundImage(image, for: .highlighted)
-        
-        addSingle.frame = CGRect(x: 0.0, y: 5, width: width, height: height)
+
+        addFriend.frame = CGRect(x: 0.0, y: 5, width: width, height: height)
         addSingle.setBackgroundImage(image, for: .highlighted)
+/// 只显示 加好友 和扫码功能
+//        addGroup.frame = CGRect(x: 0.0, y: 5 + height, width: width, height: height)
+//        addGroup.setBackgroundImage(image, for: .highlighted)
+//
+//        addSingle.frame = CGRect(x: 0.0, y: 5, width: width, height: height)
+//        addSingle.setBackgroundImage(image, for: .highlighted)
     
-        addSubview(addSingle)
-        addSubview(addGroup)
+//        addSubview(addSingle)
+//        addSubview(addGroup)
         addSubview(addFriend)
         addSubview(scanQRCode)
     }

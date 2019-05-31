@@ -203,7 +203,7 @@ class JCRegisterViewController: UIViewController {
     }
     
     @objc func _clickLoginButton() {
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func _updateRegisterButton() {

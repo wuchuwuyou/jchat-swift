@@ -84,32 +84,43 @@ class JCGroupSettingViewController: UIViewController, CustomNavigation {
     }
     
 }
-
+/// 修改群信息设置
 extension JCGroupSettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 4
+//        return 4
+        return 2
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+//        switch section {
+//        case 0:
+//            return 1
+//        case 1:
+//            return 3
+//        case 2:
+////            return 5
+//            return 4
+//        case 3:
+//            return 1
+//        default:
+//            return 0
+//        }
         switch section {
         case 0:
-            return 1
-        case 1:
             return 3
-        case 2:
-//            return 5
-            return 4
-        case 3:
+        case 1:
             return 1
         default:
             return 0
         }
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
         switch indexPath.section {
         case 0:
             if isMyGroup {
@@ -154,29 +165,111 @@ extension JCGroupSettingViewController: UITableViewDelegate, UITableViewDataSour
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            var cell = tableView.dequeueReusableCell(withIdentifier: "JCGroupSettingCell") as? JCGroupSettingCell
-            if isNeedUpdate {
-                cell = JCGroupSettingCell(style: .default, reuseIdentifier: "JCGroupSettingCell", group: self.group)
-                isNeedUpdate = false
-            }
-            if cell == nil {
-                cell = JCGroupSettingCell(style: .default, reuseIdentifier: "JCGroupSettingCell", group: self.group)
-            }
-            return cell!
-        }
-        if indexPath.section == 3 {
+//        if indexPath.section == 0 {
+//            var cell = tableView.dequeueReusableCell(withIdentifier: "JCGroupSettingCell") as? JCGroupSettingCell
+//            if isNeedUpdate {
+//                cell = JCGroupSettingCell(style: .default, reuseIdentifier: "JCGroupSettingCell", group: self.group)
+//                isNeedUpdate = false
+//            }
+//            if cell == nil {
+//                cell = JCGroupSettingCell(style: .default, reuseIdentifier: "JCGroupSettingCell", group: self.group)
+//            }
+//            return cell!
+//        }
+//        if indexPath.section == 3 {
+//            return tableView.dequeueReusableCell(withIdentifier: "JCButtonCell", for: indexPath)
+//        }
+//        if indexPath.section == 1 && indexPath.row == 0 {
+//            return tableView.dequeueReusableCell(withIdentifier: "GroupAvatorCell", for: indexPath)
+//        }
+//        return tableView.dequeueReusableCell(withIdentifier: "JCMineInfoCell", for: indexPath)
+        if indexPath.section == 1 {
             return tableView.dequeueReusableCell(withIdentifier: "JCButtonCell", for: indexPath)
         }
-        if indexPath.section == 1 && indexPath.row == 0 {
-            return tableView.dequeueReusableCell(withIdentifier: "GroupAvatorCell", for: indexPath)
-        }
+//        if indexPath.section == 1 && indexPath.row == 0 {
+//            return tableView.dequeueReusableCell(withIdentifier: "GroupAvatorCell", for: indexPath)
+//        }
         return tableView.dequeueReusableCell(withIdentifier: "JCMineInfoCell", for: indexPath)
+
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.selectionStyle = .none
-        if indexPath.section == 3 {
+//        if indexPath.section == 3 {
+//            guard let cell = cell as? JCButtonCell else {
+//                return
+//            }
+//            cell.buttonColor = UIColor(netHex: 0xEB424D)
+//            cell.buttonTitle = "退出此群"
+//            cell.delegate = self
+//            return
+//        }
+//        cell.accessoryType = .disclosureIndicator
+//        if indexPath.section == 0 {
+//            guard let cell = cell as? JCGroupSettingCell else {
+//                return
+//            }
+//            cell.bindData(self.group)
+//            cell.delegate = self
+//            cell.accessoryType = .none
+//            return
+//        }
+//
+//        if let cell = cell as? GroupAvatorCell {
+//            cell.title = "群头像"
+//            cell.bindData(group)
+//        }
+//
+//        guard let cell = cell as? JCMineInfoCell else {
+//            return
+//        }
+//        if indexPath.section == 2 {
+//            if indexPath.row == 1 {
+//                cell.delegate = self
+//                cell.indexPate = indexPath
+//                cell.accessoryType = .none
+//                cell.isSwitchOn = group.isNoDisturb
+//                cell.isShowSwitch = true
+//            }
+//            if indexPath.row == 2 {
+//                cell.delegate = self
+//                cell.indexPate = indexPath
+//                cell.accessoryType = .none
+//                cell.isSwitchOn = group.isShieldMessage
+//                cell.isShowSwitch = true
+//            }
+//        }
+//        if indexPath.section == 1 {
+//            let conv = JMSGConversation.groupConversation(withGroupId: self.group.gid)
+//            let group = conv?.target as! JMSGGroup
+//            switch indexPath.row {
+//            case 1:
+//                cell.title = "群聊名称"
+//                cell.detail = group.displayName()
+//            case 2:
+//                cell.title = "群描述"
+//                cell.detail = group.desc
+//            default:
+//                break
+//            }
+//        } else {
+//            switch indexPath.row {
+//            case 0:
+//                cell.title = "聊天文件"
+//            case 1:
+//                cell.title = "消息免打扰"
+//            case 2:
+//                cell.title = "消息屏蔽"
+////            case 2:
+////                cell.title = "清理缓存"
+//            case 3:
+//                cell.title = "清空聊天记录"
+//            default:
+//                break
+//            }
+//        }
+        if indexPath.section == 1 {
+            cell.accessoryType = .none
             guard let cell = cell as? JCButtonCell else {
                 return
             }
@@ -185,34 +278,20 @@ extension JCGroupSettingViewController: UITableViewDelegate, UITableViewDataSour
             cell.delegate = self
             return
         }
-        cell.accessoryType = .disclosureIndicator
-        if indexPath.section == 0 {
-            guard let cell = cell as? JCGroupSettingCell else {
-                return
-            }
-            cell.bindData(self.group)
-            cell.delegate = self
-            cell.accessoryType = .none
-            return
-        }
-
-        if let cell = cell as? GroupAvatorCell {
-            cell.title = "群头像"
-            cell.bindData(group)
-        }
-
+        
         guard let cell = cell as? JCMineInfoCell else {
             return
         }
-        if indexPath.section == 2 {
-            if indexPath.row == 1 {
+        if indexPath.section == 0 {
+            cell.accessoryType = .disclosureIndicator
+            if indexPath.row == 0 {
                 cell.delegate = self
                 cell.indexPate = indexPath
                 cell.accessoryType = .none
                 cell.isSwitchOn = group.isNoDisturb
                 cell.isShowSwitch = true
             }
-            if indexPath.row == 2 {
+            if indexPath.row == 1 {
                 cell.delegate = self
                 cell.indexPate = indexPath
                 cell.accessoryType = .none
@@ -220,71 +299,73 @@ extension JCGroupSettingViewController: UITableViewDelegate, UITableViewDataSour
                 cell.isShowSwitch = true
             }
         }
-        if indexPath.section == 1 {
-            let conv = JMSGConversation.groupConversation(withGroupId: self.group.gid)
-            let group = conv?.target as! JMSGGroup
-            switch indexPath.row {
-            case 1:
-                cell.title = "群聊名称"
-                cell.detail = group.displayName()
-            case 2:
-                cell.title = "群描述"
-                cell.detail = group.desc
-            default:
-                break
-            }
-        } else {
+
+        
+
+        if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
-                cell.title = "聊天文件"
-            case 1:
                 cell.title = "消息免打扰"
-            case 2:
+            case 1:
                 cell.title = "消息屏蔽"
-//            case 2:
-//                cell.title = "清理缓存"
-            case 3:
+            case 2:
                 cell.title = "清空聊天记录"
             default:
                 break
             }
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0:
-                let vc = GroupAvatorViewController()
-                vc.group = group
-                navigationController?.pushViewController(vc, animated: true)
-            case 1:
-                let vc = JCGroupNameViewController()
-                vc.group = group
-                navigationController?.pushViewController(vc, animated: true)
-            case 2:
-                let vc = JCGroupDescViewController()
-                vc.group = group
-                navigationController?.pushViewController(vc, animated: true)
-            default:
-                break
-            }
-        }
-        
-        if indexPath.section == 2 {
-            switch indexPath.row {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        if indexPath.section == 1 {
+//            switch indexPath.row {
+//            case 0:
+//                let vc = GroupAvatorViewController()
+//                vc.group = group
+//                navigationController?.pushViewController(vc, animated: true)
+//            case 1:
+//                let vc = JCGroupNameViewController()
+//                vc.group = group
+//                navigationController?.pushViewController(vc, animated: true)
 //            case 2:
-//                let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "清理缓存")
+//                let vc = JCGroupDescViewController()
+//                vc.group = group
+//                navigationController?.pushViewController(vc, animated: true)
+//            default:
+//                break
+//            }
+//        }
+//
+//        if indexPath.section == 2 {
+//            switch indexPath.row {
+////            case 2:
+////                let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "清理缓存")
+////                actionSheet.tag = 1001
+////                actionSheet.show(in: self.view)
+//            case 0:
+//                let vc = FileManagerViewController()
+//                let conv = JMSGConversation.groupConversation(withGroupId: group.gid)
+//                vc.conversation  = conv
+//                navigationController?.pushViewController(vc, animated: true)
+//            case 3:
+//                let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "清空聊天记录")
 //                actionSheet.tag = 1001
 //                actionSheet.show(in: self.view)
-            case 0:
-                let vc = FileManagerViewController()
-                let conv = JMSGConversation.groupConversation(withGroupId: group.gid)
-                vc.conversation  = conv
-                navigationController?.pushViewController(vc, animated: true)
-            case 3:
+//            default:
+//                break
+//            }
+//        }
+//    }
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 0 {
+            switch indexPath.row {
+                //            case 2:
+                //                let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "清理缓存")
+                //                actionSheet.tag = 1001
+            //                actionSheet.show(in: self.view)
+            case 2:
                 let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "清空聊天记录")
                 actionSheet.tag = 1001
                 actionSheet.show(in: self.view)
@@ -318,7 +399,7 @@ extension JCGroupSettingViewController: JCMineInfoCellDelegate {
     func mineInfoCell(clickSwitchButton button: UISwitch, indexPath: IndexPath?) {
         if indexPath != nil {
             switch (indexPath?.row)! {
-            case 1:
+            case 0:
                 if group.isNoDisturb == button.isOn {
                     return
                 }
@@ -330,7 +411,7 @@ extension JCGroupSettingViewController: JCMineInfoCellDelegate {
                         MBProgressHUD_JChat.show(text: "\(String.errorAlert(error! as NSError))", view: self.view)
                     }
                 })
-            case 2:
+            case 1:
                 if group.isShieldMessage == button.isOn {
                     return
                 }
