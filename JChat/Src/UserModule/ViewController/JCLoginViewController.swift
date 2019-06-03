@@ -222,8 +222,8 @@ class JCLoginViewController: UIViewController {
     @objc func _clickRegisterButton() {
         userNameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
-//        navigationController?.pushViewController(JCRegisterViewController(), animated: true)
-        navigationController?.pushViewController(JCMobileViewController(), animated: true)
+        navigationController?.pushViewController(JCRegisterViewController(), animated: true)
+//        navigationController?.pushViewController(JCMobileViewController(), animated: true)
 
     }
     

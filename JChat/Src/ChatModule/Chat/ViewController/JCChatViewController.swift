@@ -142,7 +142,7 @@ class JCChatViewController: UIViewController {
             SAIToolboxItem("page:camera", "拍照", UIImage.loadImage("chat_tool_camera")),
             SAIToolboxItem("page:video_s", "小视频", UIImage.loadImage("chat_tool_video_short")),
             SAIToolboxItem("page:location", "位置", UIImage.loadImage("chat_tool_location")),
-            SAIToolboxItem("page:businessCard", "名片", UIImage.loadImage("chat_tool_businessCard")),
+//            SAIToolboxItem("page:businessCard", "名片", UIImage.loadImage("chat_tool_businessCard")),
             ]
     }()
     

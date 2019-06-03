@@ -88,7 +88,7 @@ extension JCMineViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 || section == 2 {
             return 1
         }
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

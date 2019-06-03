@@ -10,6 +10,9 @@ import UIKit
 
 class JCRegisterViewController: UIViewController {
     
+    var mId:Int = 0
+    var mSign:String = ""
+
     //MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,7 @@ class JCRegisterViewController: UIViewController {
         view.addSubview(rightButton)
         return view
     }()
+    
     
     private lazy var passwordTextField: UITextField = {
         var textField = UITextField()
@@ -72,7 +76,56 @@ class JCRegisterViewController: UIViewController {
         avatorView.image = UIImage.loadImage("com_icon_80")
         return avatorView
     }()
+    private lazy var phoneTextField: UITextField = {
+        var textField = UITextField()
+        textField.addTarget(self, action: #selector(textFieldDidChanged(_ :)), for: .editingChanged)
+        textField.clearButtonMode = .whileEditing
+        textField.tag = 1001
+        textField.delegate = self
+        textField.placeholder = "请输入手机号"
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.frame = CGRect(x: 38 + 18 + 15, y: passwordTextField.y+passwordTextField.height+10, width: self.view.width - 76 - 33 - 100, height: 40)
+        return textField
+    }()
     
+    private lazy var getCodeButton: UIButton = {
+        var button = UIButton()
+        button.backgroundColor = UIColor(netHex: 0x2DD0CF)
+        button.frame = CGRect(x:(phoneTextField.x+phoneTextField.width + 15) , y: phoneTextField.y, width: 80, height: 40)
+        button.setTitle("验证码", for: .normal)
+        button.layer.cornerRadius = 3.0
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(_clickGetCodeButton), for: .touchUpInside)
+        return button
+    }()
+    private lazy var codeTextField: UITextField = {
+        var textField = UITextField()
+        textField.addTarget(self, action: #selector(textFieldDidChanged(_ :)), for: .editingChanged)
+        textField.clearButtonMode = .whileEditing
+        textField.tag = 1002
+        textField.delegate = self
+        textField.placeholder = "请输入验证码"
+        //        textField.isSecureTextEntry = true
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.frame = CGRect(x: 38 + 18 + 15, y: phoneTextField.y+phoneTextField.height+10, width: self.view.width - 76 - 33 - 100, height: 40)
+        return textField
+    }()
+    fileprivate lazy var phoneLine: UILabel = {
+        var line = UILabel()
+        line.backgroundColor = UIColor(netHex: 0x2DD0CF)
+        line.alpha = 0.4
+        line.frame = CGRect(x: 38, y: self.phoneTextField.y + 40, width: self.view.width - 76 - 100, height: 1)
+        return line
+    }()
+    
+    fileprivate lazy var codeLine: UILabel = {
+        var line = UILabel()
+        line.backgroundColor = UIColor(netHex: 0x2DD0CF)
+        line.alpha = 0.4
+        line.frame = CGRect(x: 38, y: self.codeTextField.y + 40, width: self.view.width - 76, height: 1)
+        return line
+    }()
+
     private lazy var loginButton: UIButton = {
         var button = UIButton()
         button.frame = CGRect(x: self.view.centerX + 12, y: self.view.height - 42, width: 50, height: 16.5)
@@ -86,11 +139,13 @@ class JCRegisterViewController: UIViewController {
     private lazy var registerButton: UIButton = {
         var button = UIButton()
         button.backgroundColor = UIColor(netHex: 0x2DD0CF)
-        button.frame = CGRect(x: 38, y: 108 + 185 + 80, width: self.view.width - 76, height: 40)
+        button.frame = CGRect(x: 38, y: codeTextField.y+codeTextField.height+10, width: self.view.width - 76, height: 40)
         button.setTitle("注册", for: .normal)
         button.layer.cornerRadius = 3.0
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(_userRegister), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(_userRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(_clickCheckCodeButton), for: .touchUpInside)
+
         return button
     }()
     
@@ -153,7 +208,12 @@ class JCRegisterViewController: UIViewController {
         bgView.addSubview(passwordIcon)
         bgView.addSubview(usernameLine)
         bgView.addSubview(passwordLine)
-        
+        bgView.addSubview(codeTextField)
+        bgView.addSubview(phoneTextField)
+        bgView.addSubview(getCodeButton)
+        bgView.addSubview(codeLine)
+        bgView.addSubview(phoneLine)
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(_tapView))
         bgView.addGestureRecognizer(tap)
     }
@@ -215,6 +275,153 @@ class JCRegisterViewController: UIViewController {
             registerButton.alpha = 1.0
         }
     }
+    @objc func _clickGetCodeButton() {
+        //        navigationController?.popViewController(animated: true)
+        let phone = phoneTextField.text!.trim()
+        
+        if (phone.count == 0) {
+            MBProgressHUD_JChat.show(text: "手机号不能为空", view: view)
+            return
+        }
+        let urlString = "http://sms.boy66.vip/jgsms/index.php/Welcome/index"
+        var components = URLComponents(string: urlString)!
+        let sign = "888" + phone
+        components.queryItems = [
+            URLQueryItem(name: "phone", value: phone),
+            URLQueryItem(name: "sign", value: sign.md5())
+        ]
+        MBProgressHUD_JChat.showMessage(message: "发送中", toView: view)
+        
+        //创建URL对象
+        //        let url = URL(string:urlString)
+        //创建请求对象
+        let request = URLRequest(url: components.url!)
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request,
+                                        completionHandler: {(data, response, error) -> Void in
+                                            let mainQueue = DispatchQueue.main
+                                            mainQueue.async {
+                                                MBProgressHUD_JChat.hide(forView: self.view, animated: true)
+                                                if error != nil{
+                                                    print(error.debugDescription)
+                                                    MBProgressHUD_JChat.show(text: String.errorAlert(error! as NSError), view: self.view)
+                                                    
+                                                }else{
+                                                    do {
+                                                        let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? Dictionary<String, Any>
+                                                        let code = dict?["code"] as? String ?? ""
+                                                        let msg = dict?["msg"]  as? String ?? ""
+                                                        if (Int(code) == 200) {
+                                                            let sms = dict?["sms"] as? Dictionary<String, Any>
+                                                            self.mId = sms?["id"] as? Int ?? 0
+                                                            self.mSign = sms?["sign"] as? String ?? ""
+                                                            MBProgressHUD_JChat.show(text:msg, view: self.view)
+                                                        }else {
+                                                            MBProgressHUD_JChat.show(text: msg, view: self.view)
+                                                        }
+                                                    } catch {
+                                                        MBProgressHUD_JChat.show(text: String.errorAlert(error as NSError), view: self.view)
+
+                                                    }
+                                                }
+                                                
+                                            }
+        }) as URLSessionTask
+        
+        //使用resume方法启动任务
+        dataTask.resume()
+        
+    }
+    @objc func _clickCheckCodeButton() {
+        //        navigationController?.popViewController(animated: true)
+        let phone = phoneTextField.text!.trim()
+        let code = codeTextField.text!.trim()
+        
+        if (phone.count == 0) {
+            MBProgressHUD_JChat.show(text: "手机号不能为空", view: view)
+            return
+        }
+        if (code.count == 0) {
+            MBProgressHUD_JChat.show(text: "验证码不能为空", view: view)
+            return
+        }
+        
+        userNameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        let username = userNameTextField.text!.trim()
+        let password = passwordTextField.text!.trim()
+        
+        let validateUsername = UserDefaultValidationService.sharedValidationService.validateUsername(username)
+        if !(validateUsername == .ok) {
+            MBProgressHUD_JChat.show(text: validateUsername.description, view: view)
+            return
+        }
+        
+        let validatePassword = UserDefaultValidationService.sharedValidationService.validatePassword(password)
+        if !(validatePassword == .ok) {
+            MBProgressHUD_JChat.show(text: validatePassword.description, view: view)
+            return
+        }
+
+        
+        
+        let urlString = "http://sms.boy66.vip/jgsms/index.php/Welcome/checkcode"
+        var components = URLComponents(string: urlString)!
+        components.queryItems = [
+            URLQueryItem(name: "id", value: String(self.mId)),
+            URLQueryItem(name: "code", value: code),
+            URLQueryItem(name: "phone", value: phone),
+            URLQueryItem(name: "sign", value: self.mSign),
+            URLQueryItem(name: "username", value: username)
+        ]
+        MBProgressHUD_JChat.showMessage(message: "验证中", toView: view)
+        
+        //创建URL对象
+        //        let url = URL(string:urlString)
+        //创建请求对象
+        let request = URLRequest(url: components.url!)
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request,
+                                        completionHandler: {(data, response, error) -> Void in
+                                            let mainQueue = DispatchQueue.main
+                                            mainQueue.async {
+                                                MBProgressHUD_JChat.hide(forView: self.view, animated: true)
+                                                if error != nil{
+                                                    print(error.debugDescription)
+                                                    MBProgressHUD_JChat.show(text: String.errorAlert(error! as NSError), view: self.view)
+                                                    
+                                                }else{
+                                                    do {
+                                                        let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? Dictionary<String, Any>
+                                                        let code = dict?["code"] as? Int ?? 0
+                                                        let msg = dict?["msg"]  as? String ?? ""
+                                                        if (code == 200) {
+                                                            
+                                                            MBProgressHUD_JChat.show(text:msg, view: self.view)
+                                                            self.userNameTextField.resignFirstResponder()
+                                                            self.passwordTextField.resignFirstResponder()
+                                                                self._userRegister()
+//                                                            self.navigationController?.pushViewController(JCRegisterViewController(), animated: true)
+                                                            
+                                                        }else {
+                                                            MBProgressHUD_JChat.show(text: msg,view: self.view)
+                                                        }
+                                                        
+                                                        
+                                                    } catch {
+                                                        MBProgressHUD_JChat.show(text: String.errorAlert(error as NSError), view: self.view)
+
+                                                    }
+                                                }
+                                            }
+        }) as URLSessionTask
+        
+        //使用resume方法启动任务
+        dataTask.resume()
+    }
+
     
 }
 
