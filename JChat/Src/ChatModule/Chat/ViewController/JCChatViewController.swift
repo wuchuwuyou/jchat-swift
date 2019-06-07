@@ -947,11 +947,11 @@ extension JCChatViewController: JCMessageDelegate {
         if !isGroup || message.options.alignment == .right {
             return
         }
-        toolbar.becomeFirstResponder()
-        if let user = message.sender {
-            toolbar.text.append("@")
-            handleAt(toolbar, NSMakeRange(toolbar.text.length - 1, 0), user, false, user.displayName().length)
-        }
+//        toolbar.becomeFirstResponder()
+//        if let user = message.sender {
+//            toolbar.text.append("@")
+//            handleAt(toolbar, NSMakeRange(toolbar.text.length - 1, 0), user, false, user.displayName().length)
+//        }
     }
 
     func tapUnreadTips(message: JCMessageType) {
@@ -1166,19 +1166,19 @@ extension JCChatViewController: SAIInputBarDelegate, SAIInputBarDisplayable {
         if !isGroup {
             return true
         }
-        if string == "@" {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                let vc = JCRemindListViewController()
-                vc.finish = { (user, isAtAll, length) in
-                    self.handleAt(inputBar, range, user, isAtAll, length)
-                }
-                vc.group = self.conversation.target as! JMSGGroup
-                let nav = JCNavigationController(rootViewController: vc)
-                self.present(nav, animated: true, completion: {})
-            }
-        } else {
-            return updateRemids(inputBar, string, range, currentIndex)
-        }
+//        if string == "@" {
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+//                let vc = JCRemindListViewController()
+//                vc.finish = { (user, isAtAll, length) in
+//                    self.handleAt(inputBar, range, user, isAtAll, length)
+//                }
+//                vc.group = self.conversation.target as! JMSGGroup
+//                let nav = JCNavigationController(rootViewController: vc)
+//                self.present(nav, animated: true, completion: {})
+//            }
+//        } else {
+//            return updateRemids(inputBar, string, range, currentIndex)
+//        }
         return true
     }
 
